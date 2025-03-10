@@ -89,11 +89,7 @@ and feed it our paylod which results the following output:
 
 ![Image containing the output of p4.py](ss/p4_final.png)
 
-**P5:** Using the code in `p5.py`, we are able to obtain all the possible combinations of the previously obtained substrings. After gathering the output, the .txt file looks something like this:
-
-![Output of p5](ss/p5_output.png)
-
-Being too large, we need to filter it by tossing away any verbosity and making the results less noisy. This is done with the solution written in `p5_result.py`. Reading over the `filtered_output.txt`, we find our flag at a specific candidate. 
+**P5:** Using the code in `p5.py`, we are able to obtain all the possible combinations of the previously obtained substrings. Being too large, we need to filter it by tossing away any verbosity and making the results less noisy. This is done with the solution written in `p5_result.py`. Reading over the `filtered_output.txt`, we find our flag at a specific candidate. 
 
 ![Photo containing the filtered output, identifying the flag](ss/filtered_output.png)
 
@@ -101,4 +97,37 @@ Using that candidate as payload to our `./crackme`, we can verify it works.
 
 ![Photo proof of valid candidate](ss/p5_final.png)
 
+---
+
+### Task 2: for Windows 
+
+**Prerequisites:**
+- Install [Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon#download)
+- Install [API Monitor](http://www.rohitab.com/apimonitor)
+- Disable Virus & Threat Protection from Windows Security.
+- Add `malware.exe` to Exceptions to be able to freely investigate its behavior without Windows Defender removing it.
+
+**P1:** Start **API Monitor x86** (because executable is 32-bit) and start `Monitor New Process`, navigate to the path of your .exe and press OK. Our tool will provide information based on our selected modules on the left. For the first task, we will check the `Internet` module to see any HTTP connections. We notice that the executable tries to send a HTTP `GET /secondstage` request over `http://maybe.suspicious.to` 
+
+![Photo proof of process monitor connectivity try](api_monitor_calls.png)
+
+**P2:** For the second task, we need to uncheck the `Internet` module and check the `Registry` module found at `System Services / Windows System Information`. 
+
+![Photo proof of process monitor connectivity try](registry.png)
+
+Our tool provides information on what registries the application tries to access:
+
+- HKEY_CURRENT_USER\Software\Borland\Locales
+- HKEY_LOCAL_MACHINE\Software\Borland\Locales
+- HKEY_CURRENT_USER\Software\Borland\Delphi\Locales
+- HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+- HKEY_CLASSES_ROOT\http\shell\open\command
+- HKEY_CURRENT_USER\Software\Classes\http\shell\open\command
+- HKEY_CURRENT_USER\Software\WebLaunchAssist
+
+It looks like the binary is a `Delphi` program, concluded due to the registries it tries to access , `Borland/Delphi`. This is a check-up on the local system.
+
+It also tries to maintain persistence by accessing `Run` and `RunOnce` (for Admin users) so that the executable is run at start-up. `WebLaunchAssist` seems to be an executable created by the malware.
+
+The malware also attempts to modify the `http\shell\open\command` registry which controls the default Internet browser.
 
