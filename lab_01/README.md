@@ -89,11 +89,7 @@ and feed it our paylod which results the following output:
 
 ![Image containing the output of p4.py](ss/p4_final.png)
 
-**P5:** Using the code in `p5.py`, we are able to obtain all the possible combinations of the previously obtained substrings. After gathering the output, the .txt file looks something like this:
-
-![Output of p5](ss/p5_output.png)
-
-Being too large, we need to filter it by tossing away any verbosity and making the results less noisy. This is done with the solution written in `p5_result.py`. Reading over the `filtered_output.txt`, we find our flag at a specific candidate. 
+**P5:** Using the code in `p5.py`, we are able to obtain all the possible combinations of the previously obtained substrings. Being too large, we need to filter it by tossing away any verbosity and making the results less noisy. This is done with the solution written in `p5_result.py`. Reading over the `filtered_output.txt`, we find our flag at a specific candidate. 
 
 ![Photo containing the filtered output, identifying the flag](ss/filtered_output.png)
 
