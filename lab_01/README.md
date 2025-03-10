@@ -109,11 +109,11 @@ Using that candidate as payload to our `./crackme`, we can verify it works.
 
 **P1:** Start **API Monitor x86** (because executable is 32-bit) and start `Monitor New Process`, navigate to the path of your .exe and press OK. Our tool will provide information based on our selected modules on the left. For the first task, we will check the `Internet` module to see any HTTP connections. We notice that the executable tries to send a HTTP `GET /secondstage` request over `http://maybe.suspicious.to` 
 
-![Photo proof of process monitor connectivity try](api_monitor_calls.png)
+![Photo proof of process monitor connectivity try](ss/api_monitor_calls.png)
 
 **P2:** For the second task, we need to uncheck the `Internet` module and check the `Registry` module found at `System Services / Windows System Information`. 
 
-![Photo proof of process monitor connectivity try](registry.png)
+![Photo proof of process monitor connectivity try](ss/registry.png)
 
 Our tool provides information on what registries the application tries to access:
 
