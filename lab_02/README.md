@@ -25,7 +25,7 @@
 ![PE.8.2](ex8_2.png)
 ![PE.8.3](ex8_3.png)
 
-9. ![PE.9](ex_9.png)
+9. ![PE.9](ex9.png)
 
 **Tasks**
 
@@ -39,3 +39,4 @@
 ![T3.3](t3_3.png)
 
 **T3.4** Registers `rbp` and `rbx` are saved and there're 8 octets allocated (supposed it's an `int64`). It also makes a copy of `n` (from `rdi`) in `rbx`. There's a `cmp` instruction for `rdi` against 1 (checking if `n` is greater than 1). If it is, in `.L2`, value from `rbx` is moved into `rax` and then frees the allocated memory in the beginning (the 8 octets, returning `rbx` and `rbp`). After this, in `.L4` it calculates `rdi-1` and stores the address of it in `rdi`. A recursive call is made and the result is saved in `rbp`. It does the same for the second recursive function call and it adds both the results and stores it in `rbx`. Finally, it goes back to `.L2` to free memory.
+![T.34](t3_4.png)
