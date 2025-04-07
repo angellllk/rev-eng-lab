@@ -44,10 +44,26 @@ We resume the program until our newly created `breakpoint` and we **dump** the m
 ![12](ss/12.png)
 
 Using `template.py`, the `dump.txt` is converted to a `.elf` file which we open in `Ghidra` from where we learn the bytes that the search is done against:
+
 ![14](ss/14.png)
 ![13](ss/13.png)
 
 By running `grab.py` (which converts the dumped bytes into readable data), we obtain the following result:
+```python
+encrypted = [
+    0x9b, 0x86, 0x91, 0x9e, 0x92, 0x96, 0x9c, 0xa0, 0x9e, 0x91,
+    0x9e, 0x93, 0x86, 0x8c, 0x96, 0x8c, 0xa0, 0x96, 0x8c, 0xa0,
+    0x8b, 0x97, 0x9a, 0xa0, 0x9d, 0x9a, 0x8c, 0x8b, 0xff
+]
+
+decoded = []
+for b in encrypted:
+    d = 255 - b
+    decoded.append(d)
+
+decoded_str = ''.join(chr(b) for b in decoded if b != 0)
+print("flag:", decoded_str)
+```
 ![15](ss/15.png)
 ![16](ss/16.png)
 
