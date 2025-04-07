@@ -43,8 +43,11 @@ The address we're going to place our second `breakpoint` in `gdb` is:
 We resume the program until our newly created `breakpoint` and we **dump** the memory into a `dump.txt`. 
 ![12](ss/12.png)
 
-By running `grab.py` (which converts the dumped bytes into readable data), we obtain the following result:
-![13](ss/13.png)
+Using `template.py`, the `dump.txt` is converted to a `.elf` file which we open in `Ghidra` from where we learn the bytes that the search is done against:
 ![14](ss/14.png)
+![13](ss/13.png)
+
+By running `grab.py` (which converts the dumped bytes into readable data), we obtain the following result:
 ![15](ss/15.png)
+![16](ss/16.png)
 
